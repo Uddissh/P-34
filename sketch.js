@@ -9,13 +9,15 @@ happyDog = loadImage("images/happydog.png");
 
 function setup() {
   database = firebase.database();
+
 	createCanvas(500, 500);
-var dog = createSprite(250,300,150,150);
- dog.addImage(dogImg);
- dog.scale = 0.15;
-  foodStock = database.ref('Food');
-    foodStock.on("value",readStock);
-    textSize(20);
+  dog = createSprite(250,300,150,150);
+  dog.addImage(dogImg);
+  dog.scale = 0.15;
+
+  foodStock = database.ref('food');
+  foodStock.on("value",readStock);
+
 }
 
 
@@ -26,12 +28,14 @@ if(keyWentDown(UP_ARROW)){
   writeStock(foodS);
   dog.addImage(happyDog);
 }
+
   drawSprites();
+  
   fill(255,255,254);
   stroke("black");
   text("food remaning :"+foodS,170,200);
-  textSize(13);
-  text("note : press up_arrow key to feed milk to the dog",130,10,300,20);
+  textSize(20);
+  text("note : press up arrow key to feed milk to the dog",130,10,300,20);
 
 }
 function readStock(data){
@@ -46,6 +50,6 @@ function readStock(data){
       x = x-1;
     }
       database.ref("/").update({
-        Food : x,
+        food : x,
       })
     }
