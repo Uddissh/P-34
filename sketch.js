@@ -15,9 +15,9 @@ function setup() {
   dog.addImage(dogImg);
   dog.scale = 0.15;
 
-  foodStock = database.ref('food');
+  foodStock = database.ref('Food');
   foodStock.on("value",readStock);
-
+  
 }
 
 
@@ -28,18 +28,19 @@ if(keyWentDown(UP_ARROW)){
   writeStock(foodS);
   dog.addImage(happyDog);
 }
-
   drawSprites();
-  
-  fill(255,255,254);
-  stroke("black");
-  text("food remaning :"+foodS,170,200);
-  textSize(20);
-  text("note : press up arrow key to feed milk to the dog",130,10,300,20);
-
+ 
+  if (foodS != undefined) {
+    fill(255,255,254);
+    stroke("black");
+    text("food remaning :"+foodS,170,200);
+    textSize(20);
+    text("note : press up arrow key to feed milk to the dog",130,10,300,20); 
+  }
 }
 function readStock(data){
   foodS = data.val();
+  console.log(foodS)
   }
   
   function writeStock(x){
